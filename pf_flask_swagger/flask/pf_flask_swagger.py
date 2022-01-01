@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template
 
 from pf_flask_swagger.common.pf_flask_swagger_config import PFFlaskSwaggerConfig
+from pf_flask_swagger.swagger.pf_swagger_generator import PFSwaggerGenerator
 
 
 class PFFlaskSwagger:
@@ -27,7 +28,9 @@ class PFFlaskSwagger:
             self._app.register_blueprint(blue_print)
 
     def swagger_json(self):
-        pass
+        pf_swagger_generator = PFSwaggerGenerator(self._swagger_config)
+        return pf_swagger_generator.get_swagger_spec()
+
 
     def swagger_ui(self):
         return render_template('pf-swagger-ui.html')
