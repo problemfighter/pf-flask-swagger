@@ -1,0 +1,38 @@
+= In the name of God, the Most Gracious, the Most Merciful.
+
+= PF-Flask-Swagger 
+
+
+{blank} +
+
+== Documentation
+Install and update using link:[pip]:
+```bash
+pip install -U pf-flask-swagger
+```
+
+*Please find link:[the Documentation] with example from link:[hmtmcse.com, window=blank]*
+
+
+{blank} +
+
+== Donate
+link:[Problem Fighter, window=blank] develops and supports PF-Flask-Swagger and the libraries it uses. In order to grow
+the community of contributors and users, and allow the maintainers to devote more time to the projects.
+
+
+{blank} +
+
+== Contributing
+For guidance on setting up a development environment and how to make a contribution to PF-Flask-Swagger, see the contributing guidelines.
+
+
+{blank} +
+
+== Links
+* *Changes :* link:https://opensource.problemfighter.org/flask/pf-flask-swagger[https://opensource.problemfighter.org/flask/pf-flask-swagger, window=blank]
+* *PyPI Releases :* link:[https://pypi.org/project/pf-flask-swagger, window=blank]
+* *Source Code :* link:https://github.com/problemfighter/pf-flask-swagger[https://github.com/problemfighter/pf-flask-swagger, window=blank]
+* *Issue Tracker :* link:https://github.com/problemfighter/pf-flask-swagger/issues[https://github.com/problemfighter/pf-flask-swagger/issues, window=blank]
+* *Website :* link:https://www.problemfighter.com/open-source[https://www.problemfighter.com/open-source, window=blank]
+
