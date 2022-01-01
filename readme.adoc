@@ -17,7 +17,7 @@ pip install -U pf-flask-swagger
 {blank} +
 
 == Donate
-link:[Problem Fighter, window=blank] develops and supports PF-Flask-Swagger and the libraries it uses. In order to grow
+link:https://www.problemfighter.com/[Problem Fighter, window=blank] develops and supports PF-Flask-Swagger and the libraries it uses. In order to grow
 the community of contributors and users, and allow the maintainers to devote more time to the projects.
 
 
