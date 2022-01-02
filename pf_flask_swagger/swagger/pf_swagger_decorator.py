@@ -18,7 +18,7 @@ def add_swagger_endpoint(
 
         @wraps(function)
         def pf_swagger_def(*args, **kwargs):
-            if 'pfms_definition' in kwargs and kwargs['pfms_definition']:
+            if 'pass_definition' in kwargs and kwargs['pass_definition']:
                 definition = SwaggerParamDef()
                 definition.request_obj = request_obj
                 definition.request_list = request_list

@@ -16,6 +16,7 @@ class SwaggerParamDef(object):
     def_type: str = DefinitionTypeConst.NONE
 
     method: str = None
+    tag: str = None
     methods: list = []
     tags: list = []
     description: str = ""
