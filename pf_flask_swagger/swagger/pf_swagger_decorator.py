@@ -1,13 +1,14 @@
 from functools import wraps
 from pf_flask_swagger.common.pf_flask_swagger_config import PFFlaskSwaggerConfig
-from pf_flask_swagger.swagger.data.swagger_constant import CommonConst, MethodConst, DataType
+from pf_flask_swagger.swagger.data.swagger_constant import CommonConst, DataTypeConst, MethodConst, DefinitionTypeConst
 from pf_flask_swagger.swagger.data.swagger_param_def import SwaggerParamDef
 
 
 def add_swagger_endpoint(
         request_obj=None, request_list=None, response_obj=None,
-        response_list=None, query_params: dict = None,
-        url_params: dict = None, tag: str = None, method: str = None,
+        response_list=None, query_params: list = None,
+        url_params: list = None, tag: str = None, method: str = None,
+        def_type: str = DefinitionTypeConst.NONE,
         pf_message_response: bool = False):
     def decorator(function):
         function.__pf_swagger__ = CommonConst.PF_SWAGGER
@@ -24,6 +25,7 @@ def add_swagger_endpoint(
                 definition.url_params = url_params
                 definition.tag = tag
                 definition.method = method
+                definition.def_type = def_type
                 definition.pf_message_response = pf_message_response
                 return definition
             return function(*args, **kwargs)
@@ -32,7 +34,7 @@ def add_swagger_endpoint(
 
 
 def get_request(
-        query_params: dict = None, url_params: dict = None,
+        query_params: list = None, url_params: list = None,
         tag: str = None, pf_message_response: bool = False):
     return add_swagger_endpoint(
         method=MethodConst.GET, query_params=query_params, url_params=url_params,
@@ -42,22 +44,24 @@ def get_request(
 
 def post_request(
         request_obj=None, request_list=None, response_obj=None,
-        response_list=None, query_params: dict = None,
-        url_params: dict = None, tag: str = None,
+        response_list=None, query_params: list = None,
+        url_params: list = None, tag: str = None,
+        def_type: str = DefinitionTypeConst.NONE,
         pf_message_response: bool = False):
     return add_swagger_endpoint(
         request_obj=request_obj, request_list=request_list, response_obj=response_obj, response_list=response_list,
-        method=MethodConst.POST, query_params=query_params, url_params=url_params,
+        method=MethodConst.POST, query_params=query_params, url_params=url_params, def_type=def_type,
         tag=tag, pf_message_response=pf_message_response
     )
 
 
 def post_upload_request(
         request_obj=None, request_list=None, response_obj=None,
-        response_list=None, query_params: dict = None,
-        url_params: dict = None, tag: str = None,
+        response_list=None, query_params: list = None,
+        url_params: list = None, tag: str = None,
         pf_message_response: bool = False):
     return add_swagger_endpoint(
+        def_type=DefinitionTypeConst.FILE_UPLOAD,
         request_obj=request_obj, request_list=request_list, response_obj=response_obj, response_list=response_list,
         method=MethodConst.POST, query_params=query_params, url_params=url_params,
         tag=tag, pf_message_response=pf_message_response
@@ -66,10 +70,11 @@ def post_upload_request(
 
 def post_form_request(
         request_obj=None, request_list=None, response_obj=None,
-        response_list=None, query_params: dict = None,
-        url_params: dict = None, tag: str = None,
+        response_list=None, query_params: list = None,
+        url_params: list = None, tag: str = None,
         pf_message_response: bool = False):
     return add_swagger_endpoint(
+        def_type=DefinitionTypeConst.FORM_DATA,
         request_obj=request_obj, request_list=request_list, response_obj=response_obj, response_list=response_list,
         method=MethodConst.POST, query_params=query_params, url_params=url_params,
         tag=tag, pf_message_response=pf_message_response
@@ -78,20 +83,21 @@ def post_form_request(
 
 def put_request(
         request_obj=None, request_list=None, response_obj=None,
-        response_list=None, query_params: dict = None,
-        url_params: dict = None, tag: str = None,
+        response_list=None, query_params: list = None,
+        url_params: list = None, tag: str = None,
+        def_type: str = DefinitionTypeConst.NONE,
         pf_message_response: bool = False):
     return add_swagger_endpoint(
         request_obj=request_obj, request_list=request_list, response_obj=response_obj, response_list=response_list,
-        method=MethodConst.PUT, query_params=query_params, url_params=url_params,
+        method=MethodConst.PUT, query_params=query_params, url_params=url_params, def_type=def_type,
         tag=tag, pf_message_response=pf_message_response
     )
 
 
 def delete_request(
         request_obj=None, request_list=None, response_obj=None,
-        response_list=None, query_params: dict = None,
-        url_params: dict = None, tag: str = None,
+        response_list=None, query_params: list = None,
+        url_params: list = None, tag: str = None,
         pf_message_response: bool = False):
     return add_swagger_endpoint(
         request_obj=request_obj, request_list=request_list, response_obj=response_obj, response_list=response_list,
@@ -102,34 +108,35 @@ def delete_request(
 
 def patch_request(
         request_obj=None, request_list=None, response_obj=None,
-        response_list=None, query_params: dict = None,
-        url_params: dict = None, tag: str = None,
+        response_list=None, query_params: list = None,
+        url_params: list = None, tag: str = None,
+        def_type: str = DefinitionTypeConst.NONE,
         pf_message_response: bool = False):
     return add_swagger_endpoint(
         request_obj=request_obj, request_list=request_list, response_obj=response_obj, response_list=response_list,
-        method=MethodConst.PATCH, query_params=query_params, url_params=url_params,
+        method=MethodConst.PATCH, query_params=query_params, url_params=url_params, def_type=def_type,
         tag=tag, pf_message_response=pf_message_response
     )
 
 
 def get_paginate_request(
-        query_params: dict = None,
-        url_params: dict = None, tag: str = None,
+        query_params: list = None,
+        url_params: list = None, tag: str = None,
         pagination: bool = True, sorting: bool = True, search: bool = True,
         pf_message_response: bool = False):
     if not query_params:
         query_params = []
 
     if pagination:
-        query_params.append((PFFlaskSwaggerConfig.get_page_param, DataType.integer))
-        query_params.append((PFFlaskSwaggerConfig.item_per_page_param, DataType.integer))
+        query_params.append((PFFlaskSwaggerConfig.get_page_param, DataTypeConst.integer))
+        query_params.append((PFFlaskSwaggerConfig.item_per_page_param, DataTypeConst.integer))
 
     if sorting:
-        query_params.append((PFFlaskSwaggerConfig.sort_field_param, DataType.string))
-        query_params.append((PFFlaskSwaggerConfig.sort_order_param, DataType.string))
+        query_params.append((PFFlaskSwaggerConfig.sort_field_param, DataTypeConst.string))
+        query_params.append((PFFlaskSwaggerConfig.sort_order_param, DataTypeConst.string))
 
     if search:
-        query_params.append((PFFlaskSwaggerConfig.search_field_param, DataType.string))
+        query_params.append((PFFlaskSwaggerConfig.search_field_param, DataTypeConst.string))
 
     return add_swagger_endpoint(
         method=MethodConst.GET, query_params=query_params, url_params=url_params,

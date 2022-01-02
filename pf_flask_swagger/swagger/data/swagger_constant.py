@@ -16,7 +16,14 @@ class MethodConst(object):
     PATCH = "PATCH"
 
 
-class DataType(object):
+class DataTypeConst(object):
     integer = "integer"
     number = "number"
     string = "string"
+
+
+class DefinitionTypeConst(object):
+    NONE = None
+    PAGINATION = "PAGINATION"
+    FILE_UPLOAD = "FILE_UPLOAD"
+    FORM_DATA = "FORM_DATA"
