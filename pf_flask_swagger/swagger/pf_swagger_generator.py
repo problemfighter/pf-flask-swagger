@@ -54,13 +54,6 @@ class PFSwaggerGenerator:
             return parameters
         return None
 
-    def _entry_spec(self, definition: SwaggerParamDef):
-        if definition.url:
-            self._swagger_api_spec.path(
-                path=definition.url,
-                parameters=self._get_query_and_url_parameters(definition)
-            )
-
     def _process_and_add_request_schema(self, definition: SwaggerParamDef):
         request_schema = None
         many = False
@@ -102,6 +95,38 @@ class PFSwaggerGenerator:
             return PFSwaggerSchema.get_response_body(definition, many=many)
         return None
 
+    def _get_operations(self, definition: SwaggerParamDef):
+        operations = {}
+        for method in definition.methods:
+            request_body = self._process_and_add_request_schema(definition)
+            responses = self._process_and_add_response_schema(definition)
+            method = method.lower()
+            operations[method] = {}
+            if request_body:
+                operations[method]["requestBody"] = request_body
+            if responses:
+                operations[method]["responses"] = responses
+            if definition.tags:
+                operations[method]["tags"] = definition.tags
+        if operations:
+            return operations
+        return None
+
+    def _entry_spec(self, definition: SwaggerParamDef):
+        if definition.url:
+            self._swagger_api_spec.path(
+                path=definition.url,
+                parameters=self._get_query_and_url_parameters(definition),
+                operations=self._get_operations(definition)
+            )
+
+    def process(self, definition: SwaggerParamDef):
+        definition.init_schema_key()
+        self._entry_spec(definition)
+
+    def process_list(self, definition_list: list):
+        for definition in definition_list:
+            self.process(definition)
 
     def get_swagger_spec(self):
         specification = {}
