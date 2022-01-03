@@ -10,17 +10,14 @@ api_spec_plugin = MarshmallowPlugin()
 
 class PFSwaggerGenerator:
     _swagger_api_spec: APISpec = None
-    _config: PFFlaskSwaggerConfig = PFFlaskSwaggerConfig()
 
-    def __init__(self, config: PFFlaskSwaggerConfig = None):
-        if config:
-            self._config = config
+    def __init__(self):
         self.init_api_spec()
 
     def init_api_spec(self):
         self._swagger_api_spec = APISpec(
-            title=self._config.title,
-            version=self._config.version,
+            title=PFFlaskSwaggerConfig.title,
+            version=PFFlaskSwaggerConfig.version,
             openapi_version="3.0.2",
             plugins=[api_spec_plugin]
         )

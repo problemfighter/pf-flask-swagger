@@ -2,6 +2,7 @@ class PFFlaskSwaggerConfig(object):
     # General Config
     enable_pf_api_convention: bool = False
     enable_api_auth: bool = False
+    default_tag_name: str = "Common"
 
     # UI Config
     enable_swagger_view_page: bool = True

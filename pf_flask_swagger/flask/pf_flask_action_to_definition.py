@@ -1,5 +1,5 @@
 import types
-
+from pf_flask_swagger.common.pf_flask_swagger_config import PFFlaskSwaggerConfig
 from pf_flask_swagger.swagger.data.swagger_constant import CommonConst
 from pf_flask_swagger.swagger.data.swagger_param_def import SwaggerParamDef
 
@@ -72,7 +72,7 @@ class PFFlaskActionToDefinition:
             endpoint_name = endpoint_name.title()
             definition.tags.append(endpoint_name)
         else:
-            definition.tags.append("Common")
+            definition.tags.append(PFFlaskSwaggerConfig.default_tag_name)
         return definition
 
     def _process_action_decorator(self, definition: SwaggerParamDef, rule):
