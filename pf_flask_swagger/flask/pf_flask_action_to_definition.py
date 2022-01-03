@@ -7,8 +7,7 @@ from pf_flask_swagger.swagger.data.swagger_param_def import SwaggerParamDef
 class PFFlaskActionToDefinition:
     _flask_app = None
     _ignore_verbs = {"HEAD", "OPTIONS"}
-    _swagger_data_type = {"string": "string", "int": "integer", "float": "number", "path": "string", "any": "string",
-                          "uuid": "string"}
+    _swagger_data_type = {"string": "string", "int": "integer", "float": "number", "path": "string", "any": "string", "uuid": "string"}
 
     def __init__(self, flask_app):
         self._flask_app = flask_app

@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template
 
 from pf_flask_swagger.common.pf_flask_swagger_config import PFFlaskSwaggerConfig
+from pf_flask_swagger.flask.pf_flask_action_to_definition import PFFlaskActionToDefinition
 from pf_flask_swagger.swagger.pf_swagger_generator import PFSwaggerGenerator
 
 
@@ -28,7 +29,10 @@ class PFFlaskSwagger:
             self._app.register_blueprint(blue_print)
 
     def swagger_json(self):
+        pf_flask_action_to_definition = PFFlaskActionToDefinition(self._app)
+        definitions = pf_flask_action_to_definition.get_action_to_definitions()
         pf_swagger_generator = PFSwaggerGenerator(self._swagger_config)
+        pf_swagger_generator.process_list(definitions)
         return pf_swagger_generator.get_swagger_spec()
 
 

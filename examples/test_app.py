@@ -14,7 +14,7 @@ def bismillah():
 
 
 @app.route('/get-request')
-@get_request()
+@get_request(tag="Test App")
 def get_request_endpoint():
     return "PF Flask Swagger Test"
 
