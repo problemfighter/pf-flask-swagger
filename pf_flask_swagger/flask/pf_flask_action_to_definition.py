@@ -55,7 +55,10 @@ class PFFlaskActionToDefinition:
             if param in data_type:
                 path.append((param, data_type[param], True))
         definition.url = url_and_data_type['url']
-        definition.url_params = path
+        if definition.url_params and isinstance(definition.url_params, list):
+            definition.url_params.extend(path)
+        else:
+            definition.url_params = path
         return definition
 
     def _get_default_tag_name(self, definition: SwaggerParamDef, rule):
