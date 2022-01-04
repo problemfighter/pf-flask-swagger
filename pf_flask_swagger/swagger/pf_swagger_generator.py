@@ -1,7 +1,7 @@
 from apispec import APISpec
 from apispec.ext.marshmallow import MarshmallowPlugin
 from pf_flask_swagger.common.pf_flask_swagger_config import PFFlaskSwaggerConfig
-from pf_flask_swagger.swagger.data.swagger_constant import DataTypeConst, DefinitionTypeConst
+from pf_flask_swagger.swagger.data.swagger_constant import DataTypeConst, DefinitionTypeConst, PFSwaggerConst
 from pf_flask_swagger.swagger.data.swagger_param_def import SwaggerParamDef
 from pf_flask_swagger.swagger.pf_swagger_schema import PFSwaggerSchema
 
@@ -21,12 +21,18 @@ class PFSwaggerGenerator:
             openapi_version="3.0.2",
             plugins=[api_spec_plugin]
         )
+        self._init_pf_schema()
 
-    def add_component_schema(self, key: str, data):
+    def _add_component_schema(self, key: str, data):
         if key not in self._swagger_api_spec.components.schemas:
             self._swagger_api_spec.components.schema(key, schema=data)
 
-    def get_tuple_value(self, data: tuple, index: int, default=None):
+    def _init_pf_schema(self):
+        if PFFlaskSwaggerConfig.enable_pf_api_convention:
+            self._add_component_schema(PFSwaggerConst.MESSAGE_RESPONSE, PFSwaggerSchema.pf_api_message_response_schema())
+            self._add_component_schema(PFSwaggerConst.ERROR_DETAILS_RESPONSE, PFSwaggerSchema.pf_api_error_response_schema())
+
+    def _get_tuple_value(self, data: tuple, index: int, default=None):
         try:
             return data[index]
         except:
@@ -36,9 +42,9 @@ class PFSwaggerGenerator:
         if params:
             for query in params:
                 if isinstance(query, tuple) and len(query) != 0:
-                    name = self.get_tuple_value(query, 0)
-                    data_type = self.get_tuple_value(query, 1, DataTypeConst.string)
-                    is_required = self.get_tuple_value(query, 2, False)
+                    name = self._get_tuple_value(query, 0)
+                    data_type = self._get_tuple_value(query, 1, DataTypeConst.string)
+                    is_required = self._get_tuple_value(query, 2, False)
                     parameters.append(PFSwaggerSchema.get_url_param_schema(place, name, data_type, is_required))
         return parameters
 
@@ -67,7 +73,7 @@ class PFSwaggerGenerator:
                 request_schema = PFSwaggerSchema.pf_api_data_schema(definition.request_list, many=many)
 
         if request_schema:
-            self.add_component_schema(definition.request_schema_key, request_schema)
+            self._add_component_schema(definition.request_schema_key, request_schema)
             return PFSwaggerSchema.get_request_body(definition, many=many)
         return None
 
@@ -87,7 +93,7 @@ class PFSwaggerGenerator:
                 response_schema = PFSwaggerSchema.pf_api_response_data_schema(response_schema, many=many)
 
         if response_schema:
-            self.add_component_schema(definition.response_schema_key, response_schema)
+            self._add_component_schema(definition.response_schema_key, response_schema)
             return PFSwaggerSchema.get_response_body(definition, many=many)
         return None
 

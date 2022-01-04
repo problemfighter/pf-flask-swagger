@@ -31,8 +31,6 @@ class SwaggerParamDef(object):
     # Only for Internal Use
     request_schema_key: str = None
     response_schema_key: str = None
-    error_response_key: str = "error_response"
-    message_response_key: str = "message_response"
 
     def init_schema_key(self):
         component_code = ''.join(random.choice(string.ascii_lowercase) for i in range(12))

@@ -27,3 +27,8 @@ class DefinitionTypeConst(object):
     PAGINATION = "PAGINATION"
     FILE_UPLOAD = "FILE_UPLOAD"
     FORM_DATA = "FORM_DATA"
+
+
+class PFSwaggerConst(object):
+    MESSAGE_RESPONSE = "message_response"
+    ERROR_DETAILS_RESPONSE = "error_response"

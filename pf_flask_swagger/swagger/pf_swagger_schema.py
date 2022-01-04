@@ -1,6 +1,7 @@
 from marshmallow import Schema, fields
 
 from pf_flask_swagger.common.pf_flask_swagger_config import PFFlaskSwaggerConfig
+from pf_flask_swagger.swagger.data.swagger_constant import PFSwaggerConst
 from pf_flask_swagger.swagger.data.swagger_param_def import SwaggerParamDef
 
 
@@ -63,10 +64,10 @@ class PFSwaggerSchema:
             any_of_response = {"anyOf": []}
             if definition.response_obj:
                 any_of_response["anyOf"].append(PFSwaggerSchema.get_schema_def_and_ref(definition.response_schema_key))
-
-            any_of_response["anyOf"].append(PFSwaggerSchema.get_schema_def_and_ref(definition.message_response_key))
+            if definition.pf_message_response:
+                any_of_response["anyOf"].append(PFSwaggerSchema.get_schema_def_and_ref(PFSwaggerConst.MESSAGE_RESPONSE))
             if definition.pf_error_details_response:
-                any_of_response["anyOf"].append(PFSwaggerSchema.get_schema_def_and_ref(definition.error_response_key))
+                any_of_response["anyOf"].append(PFSwaggerSchema.get_schema_def_and_ref(PFSwaggerConst.ERROR_DETAILS_RESPONSE))
             schema = any_of_response
 
         return {
@@ -95,7 +96,8 @@ class PFSwaggerSchema:
     @staticmethod
     def pf_api_response_data_schema(data, many=False, response_map=False):
         schema_map = PFSwaggerSchema.pf_api_response_base_schema_map()
-        schema_map["data"] = fields.Nested(data, many=many)
+        if data:
+            schema_map["data"] = fields.Nested(data, many=many)
         if response_map:
             return schema_map
         return Schema.from_dict(schema_map)
@@ -110,4 +112,17 @@ class PFSwaggerSchema:
             "totalPage": fields.Integer(),
         })
         schema_map["pagination"] = fields.Nested(pagination_schema)
+        return Schema.from_dict(schema_map)
+
+    @staticmethod
+    def pf_api_message_response_schema():
+        schema_map = PFSwaggerSchema.pf_api_response_base_schema_map()
+        schema_map["message"] = fields.String()
+        return Schema.from_dict(schema_map)
+
+    @staticmethod
+    def pf_api_error_response_schema():
+        schema_map = PFSwaggerSchema.pf_api_response_base_schema_map()
+        schema_map["message"] = fields.String()
+        schema_map["error"] = fields.Dict(keys=fields.String(), values=fields.String())
         return Schema.from_dict(schema_map)
