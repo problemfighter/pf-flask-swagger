@@ -175,3 +175,18 @@ def get_paginate_request(
         tag=tag, pf_message_response=pf_message_response,
         http_response_code=http_response_code, response_content_type=response_content_type
     )
+
+
+def rest_request(
+        request_obj=None, request_list=None, response_obj=None, method: str = None, response_list=None,
+        query_params: list = None, url_params: list = None, tag: str = None, def_type: str = DefinitionTypeConst.NONE,
+        http_response_code: int = 200, response_content_type: str = ContentTypeConst.APPLICATION_JSON,
+        request_content_type: str = ContentTypeConst.APPLICATION_JSON, pf_message_response: bool = False,
+        pf_error_details_response: bool = False):
+    return add_swagger_endpoint(
+        request_obj=request_obj, request_list=request_list, response_obj=response_obj, response_list=response_list,
+        method=method, query_params=query_params, url_params=url_params, def_type=def_type,
+        tag=tag, pf_message_response=pf_message_response, pf_error_details_response=pf_error_details_response,
+        http_response_code=http_response_code, response_content_type=response_content_type,
+        request_content_type=request_content_type
+    )

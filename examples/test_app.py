@@ -1,16 +1,20 @@
 from flask import Flask, redirect
 from examples.example_dto import query_params, url_params, PersonDTO
+from examples.student_blueprint import student_blueprint
 from pf_flask_swagger.common.pf_flask_swagger_config import PFFlaskSwaggerConfig
 from pf_flask_swagger.flask.pf_flask_swagger import PFFlaskSwagger
 from pf_flask_swagger.swagger.pf_swagger_decorator import get_request, post_request, post_upload_request, \
     post_form_request, put_request, delete_request, patch_request, get_paginate_request
 
 app = Flask(__name__)
+app.register_blueprint(student_blueprint)
 
 
-PFFlaskSwaggerConfig.default_tag_name = "Example API"
+PFFlaskSwaggerConfig.default_tag_name = "Common API"
 PFFlaskSwaggerConfig.title = "PF Flask Swagger Example Output"
 PFFlaskSwaggerConfig.enable_pf_api_convention = True
+PFFlaskSwaggerConfig.enable_swagger_view_page = True
+PFFlaskSwaggerConfig.enable_api_auth = True
 flask_swagger = PFFlaskSwagger(app)
 
 
