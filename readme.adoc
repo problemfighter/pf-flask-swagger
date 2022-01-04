@@ -8,7 +8,7 @@
 == Documentation
 Install and update using link:[pip]:
 ```bash
-pip install -U pf-flask-swagger
+pip install -U PF-Flask-Swagger
 ```
 
 *Please find link:[the Documentation] with example from link:[hmtmcse.com, window=blank]*

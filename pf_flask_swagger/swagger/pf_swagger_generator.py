@@ -1,11 +1,11 @@
 from apispec import APISpec
 from apispec.ext.marshmallow import MarshmallowPlugin
+from apispec.ext.marshmallow.field_converter import FieldConverterMixin
+import pf_flask_rest_com.api_def
 from pf_flask_swagger.common.pf_flask_swagger_config import PFFlaskSwaggerConfig
 from pf_flask_swagger.swagger.data.swagger_constant import DataTypeConst, DefinitionTypeConst, PFSwaggerConst
 from pf_flask_swagger.swagger.data.swagger_param_def import SwaggerParamDef
 from pf_flask_swagger.swagger.pf_swagger_schema import PFSwaggerSchema
-
-api_spec_plugin = MarshmallowPlugin()
 
 
 class PFSwaggerGenerator:
@@ -15,11 +15,12 @@ class PFSwaggerGenerator:
         self.init_api_spec()
 
     def init_api_spec(self):
+        FieldConverterMixin.field_mapping[pf_flask_rest_com.api_def.FileField] = ("string", "binary")
         self._swagger_api_spec = APISpec(
             title=PFFlaskSwaggerConfig.title,
             version=PFFlaskSwaggerConfig.version,
             openapi_version="3.0.2",
-            plugins=[api_spec_plugin]
+            plugins=[MarshmallowPlugin()]
         )
         self._init_pf_schema()
 
@@ -63,7 +64,7 @@ class PFSwaggerGenerator:
         if definition.request_obj:
             request_schema = definition.request_obj
             if PFFlaskSwaggerConfig.enable_pf_api_convention and \
-                    (definition.def_type != DefinitionTypeConst.FORM_DATA or definition.def_type != DefinitionTypeConst.FILE_UPLOAD):
+                    (definition.def_type != DefinitionTypeConst.FORM_DATA and definition.def_type != DefinitionTypeConst.FILE_UPLOAD):
                 request_schema = PFSwaggerSchema.pf_api_data_schema(definition.request_obj)
 
         elif definition.request_list:
