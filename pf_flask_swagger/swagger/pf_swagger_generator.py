@@ -33,6 +33,21 @@ class PFSwaggerGenerator:
             self._add_component_schema(PFSwaggerConst.MESSAGE_RESPONSE, PFSwaggerSchema.pf_api_message_response_schema())
             self._add_component_schema(PFSwaggerConst.ERROR_DETAILS_RESPONSE, PFSwaggerSchema.pf_api_error_response_schema())
 
+    def _enable_api_auth(self, definition: dict):
+        if PFFlaskSwaggerConfig.enable_jwt_auth_global:
+            if definition and isinstance(definition, dict):
+                definition['security'] = [{"bearerAuth": []}]
+                if "components" not in definition:
+                    definition["components"] = {}
+                definition["components"]["securitySchemes"] = {
+                    "bearerAuth": {
+                        "type": "http",
+                        "scheme": "bearer",
+                        "bearerFormat": "JWT"
+                    }
+                }
+        return definition
+
     def _get_tuple_value(self, data: tuple, index: int, default=None):
         try:
             return data[index]
@@ -135,4 +150,5 @@ class PFSwaggerGenerator:
         specification = {}
         if self._swagger_api_spec:
             specification = self._swagger_api_spec.to_dict()
+            specification = self._enable_api_auth(specification)
         return specification

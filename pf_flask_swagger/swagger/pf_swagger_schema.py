@@ -10,6 +10,7 @@ class PFSwaggerSchema:
     IN_QUERY = "query"
     OBJ = "object"
     ARRAY = "array"
+    JWT_SCHEME = {"type": "http", "scheme": "bearer", "bearerFormat": "JWT"}
 
     @staticmethod
     def get_url_param_schema(place, name, data_type, required=False):

@@ -14,7 +14,7 @@ PFFlaskSwaggerConfig.default_tag_name = "Common API"
 PFFlaskSwaggerConfig.title = "PF Flask Swagger Example Output"
 PFFlaskSwaggerConfig.enable_pf_api_convention = True
 PFFlaskSwaggerConfig.enable_swagger_view_page = True
-PFFlaskSwaggerConfig.enable_api_auth = True
+PFFlaskSwaggerConfig.enable_jwt_auth_global = False
 flask_swagger = PFFlaskSwagger(app)
 
 

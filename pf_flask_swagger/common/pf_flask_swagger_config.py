@@ -4,6 +4,9 @@ class PFFlaskSwaggerConfig(object):
     enable_api_auth: bool = False
     default_tag_name: str = "Common"
 
+    # Auth Config
+    enable_jwt_auth_global: bool = False
+
     # UI Config
     enable_swagger_view_page: bool = True
     enable_swagger_page_auth: bool = False
