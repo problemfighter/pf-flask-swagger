@@ -25,6 +25,7 @@ if [ -z "$IS_IGNORE_VENV" ]; then
   source "$VENV"
 fi
 
+export env="dev"
 
 echo "Calling Development Library Clone and Pull Script"
 echo "-------------------------------------------------------------------------------"

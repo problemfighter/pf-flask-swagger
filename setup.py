@@ -1,4 +1,22 @@
+import os
 from setuptools import setup, find_packages
+
+env = os.environ.get('dev')
+
+
+def get_dependencies():
+    dependency = [
+        'Flask',
+        'Marshmallow',
+        'Apispec',
+    ]
+
+    if env and env == "dev":
+        return dependency
+
+    return dependency + ["PF-Flask-Rest-Com"]
+
+
 
 setup(
     name='PF-Flask-Swagger',
@@ -13,11 +31,7 @@ setup(
     zip_safe=False,
     include_package_data=True,
     platforms='any',
-    install_requires=[
-        'Flask',
-        'Marshmallow',
-        'Apispec',
-    ],
+    install_requires=get_dependencies(),
     classifiers=[
         'Environment :: Web Environment',
         'Intended Audience :: Developers',
