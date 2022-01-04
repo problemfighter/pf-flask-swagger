@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, redirect
 from examples.example_dto import query_params, url_params, PersonDTO
 from pf_flask_swagger.common.pf_flask_swagger_config import PFFlaskSwaggerConfig
 from pf_flask_swagger.flask.pf_flask_swagger import PFFlaskSwagger
@@ -9,15 +9,14 @@ app = Flask(__name__)
 
 
 PFFlaskSwaggerConfig.default_tag_name = "Example API"
-PFFlaskSwaggerConfig.title = "Example Flask Swagger App"
+PFFlaskSwaggerConfig.title = "PF Flask Swagger Example Output"
 PFFlaskSwaggerConfig.enable_pf_api_convention = True
 flask_swagger = PFFlaskSwagger(app)
 
 
-
 @app.route('/')
 def bismillah():
-    return "PF Flask Swagger Test"
+    return redirect("/pf-flask-swagger-ui")
 
 
 @app.route('/get-request')
