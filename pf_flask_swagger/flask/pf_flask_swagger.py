@@ -1,5 +1,4 @@
 from flask import Blueprint, render_template
-
 from pf_flask_swagger.common.pf_flask_swagger_config import PFFlaskSwaggerConfig
 from pf_flask_swagger.flask.pf_flask_action_to_definition import PFFlaskActionToDefinition
 from pf_flask_swagger.swagger.pf_swagger_generator import PFSwaggerGenerator
@@ -34,4 +33,4 @@ class PFFlaskSwagger:
 
 
     def swagger_ui(self):
-        return render_template('pf-swagger-ui.html')
+        return render_template('pf-swagger-ui.html', config=PFFlaskSwaggerConfig)
