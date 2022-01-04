@@ -57,14 +57,13 @@ class PFSwaggerGenerator:
         if definition.request_obj:
             request_schema = definition.request_obj
             if PFFlaskSwaggerConfig.enable_pf_api_convention and \
-                    definition.def_type != DefinitionTypeConst.FORM_DATA or \
-                    definition.def_type != DefinitionTypeConst.FILE_UPLOAD:
+                    (definition.def_type != DefinitionTypeConst.FORM_DATA or definition.def_type != DefinitionTypeConst.FILE_UPLOAD):
                 request_schema = PFSwaggerSchema.pf_api_data_schema(definition.request_obj)
 
         elif definition.request_list:
             request_schema = definition.request_list
+            many = True
             if PFFlaskSwaggerConfig.enable_pf_api_convention:
-                many = True
                 request_schema = PFSwaggerSchema.pf_api_data_schema(definition.request_list, many=many)
 
         if request_schema:

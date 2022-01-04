@@ -27,8 +27,8 @@ def add_swagger_endpoint(
                 definition.query_params = query_params
                 definition.url_params = url_params
                 definition.http_response_code = http_response_code
-                definition.tag = response_content_type
-                definition.tag = request_content_type
+                definition.response_content_type = response_content_type
+                definition.request_content_type = request_content_type
                 definition.pf_error_details_response = pf_error_details_response
                 definition.tag = tag
                 definition.method = method
@@ -43,11 +43,12 @@ def add_swagger_endpoint(
 def get_request(
         query_params: list = None, url_params: list = None,
         http_response_code: int = 200, response_content_type: str = ContentTypeConst.APPLICATION_JSON,
+        response_obj=None, response_list=None,
         tag: str = None, pf_message_response: bool = False):
     return add_swagger_endpoint(
         method=MethodConst.GET, query_params=query_params, url_params=url_params,
         tag=tag, pf_message_response=pf_message_response, http_response_code=http_response_code,
-        response_content_type=response_content_type
+        response_content_type=response_content_type, response_obj=response_obj, response_list=response_list
     )
 
 

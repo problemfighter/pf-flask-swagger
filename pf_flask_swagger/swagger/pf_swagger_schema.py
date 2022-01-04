@@ -57,7 +57,7 @@ class PFSwaggerSchema:
     @staticmethod
     def get_response_body(definition: SwaggerParamDef, many=False):
         schema_type = PFSwaggerSchema.get_schema_type(many)
-        schema = PFSwaggerSchema.get_schema_def_and_ref(definition.request_schema_key, schema_type)
+        schema = PFSwaggerSchema.get_schema_def_and_ref(definition.response_schema_key, schema_type)
 
         if PFFlaskSwaggerConfig.enable_pf_api_convention:
             any_of_response = {"anyOf": []}
