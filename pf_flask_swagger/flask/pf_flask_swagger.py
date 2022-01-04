@@ -1,6 +1,5 @@
 from flask import Blueprint, render_template, request
 from pf_flask_swagger.common.pf_flask_swagger_config import PFFlaskSwaggerConfig
-from pf_flask_swagger.flask.basic_authentication import login_required
 from pf_flask_swagger.flask.pf_flask_action_to_definition import PFFlaskActionToDefinition
 from pf_flask_swagger.swagger.pf_swagger_generator import PFSwaggerGenerator
 
