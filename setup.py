@@ -1,5 +1,9 @@
 import os
+import pathlib
 from setuptools import setup, find_packages
+
+CURRENT_DIR = pathlib.Path(__file__).parent
+README = (CURRENT_DIR / "readme.md").read_text()
 
 env = os.environ.get('dev')
 
@@ -26,7 +30,8 @@ setup(
     author='Problem Fighter',
     author_email='problemfighter.com@gmail.com',
     description='Flask Swagger Documentation by Problem Fighter Library',
-    long_description=__doc__,
+    long_description=README,
+    long_description_content_type='text/markdown',
     packages=find_packages(),
     zip_safe=False,
     include_package_data=True,
