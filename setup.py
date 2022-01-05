@@ -1,19 +1,37 @@
+import os
 from setuptools import setup, find_packages
 
+env = os.environ.get('dev')
+
+
+def get_dependencies():
+    dependency = [
+        'Flask',
+        'Marshmallow',
+        'Apispec',
+    ]
+
+    if env and env == "dev":
+        return dependency
+
+    return dependency + ["PF-Flask-Rest-Com"]
+
+
+
 setup(
-    name='pf-flask-swagger',
+    name='PF-Flask-Swagger',
     version='1.0.0',
     url='https://github.com/problemfighter/pf-flask-swagger',
     license='Apache 2.0',
     author='Problem Fighter',
-    author_email='problemfighter.cse@gmail.com',
+    author_email='problemfighter.com@gmail.com',
     description='Flask Swagger Documentation by Problem Fighter Library',
     long_description=__doc__,
     packages=find_packages(),
     zip_safe=False,
     include_package_data=True,
     platforms='any',
-    install_requires=[],
+    install_requires=get_dependencies(),
     classifiers=[
         'Environment :: Web Environment',
         'Intended Audience :: Developers',

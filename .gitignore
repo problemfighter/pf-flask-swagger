@@ -11,7 +11,9 @@ htmlcov/
 
 dist/
 build/
-*.egg-info/
+*.egg-info
 
 .idea
 *.sqlite
+
+/dev-dependencies
