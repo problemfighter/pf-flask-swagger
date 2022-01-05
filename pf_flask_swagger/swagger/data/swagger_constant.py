@@ -1,8 +1,4 @@
-class ContentTypeConst(object):
-    APPLICATION_JSON = "application/json"
-    MULTIPART_FORM_DATA = "multipart/form-data"
-    FORM_DATA = "application/x-www-form-urlencoded"
-
+# >>>>>>>>>>>>>>>>>>>> Internal Use <<<<<<<<<<<<<<<<<
 
 class CommonConst(object):
     PF_SWAGGER = "PF_SWAGGER"
@@ -16,10 +12,9 @@ class MethodConst(object):
     PATCH = "PATCH"
 
 
-class DataTypeConst(object):
-    integer = "integer"
-    number = "number"
-    string = "string"
+class PFSwaggerConst(object):
+    MESSAGE_RESPONSE = "message_response"
+    ERROR_DETAILS_RESPONSE = "error_response"
 
 
 class DefinitionTypeConst(object):
@@ -29,6 +24,15 @@ class DefinitionTypeConst(object):
     FORM_DATA = "FORM_DATA"
 
 
-class PFSwaggerConst(object):
-    MESSAGE_RESPONSE = "message_response"
-    ERROR_DETAILS_RESPONSE = "error_response"
+# >>>>>>>>>>>>>>>>>>>> External Use <<<<<<<<<<<<<<<<<
+
+class ContentTypeConst(object):
+    APPLICATION_JSON = "application/json"
+    MULTIPART_FORM_DATA = "multipart/form-data"
+    FORM_DATA = "application/x-www-form-urlencoded"
+
+
+class DataTypeConst(object):
+    integer = "integer"
+    number = "number"
+    string = "string"

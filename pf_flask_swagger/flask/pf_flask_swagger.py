@@ -41,7 +41,7 @@ class PFFlaskSwagger:
         return render_template('pf-swagger-ui.html', config=PFFlaskSwaggerConfig)
 
     def check_auth(self):
-        if PFFlaskSwaggerConfig.enable_api_auth:
+        if PFFlaskSwaggerConfig.enable_swagger_page_auth:
             auth = request.authorization
             if not (auth and auth.username == PFFlaskSwaggerConfig.swagger_page_auth_user and auth.password == PFFlaskSwaggerConfig.swagger_page_auth_password):
                 return ('You are not authorize to access the URL.', 401, {
