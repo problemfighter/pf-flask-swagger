@@ -21,10 +21,9 @@ def get_dependencies():
     return dependency + ["PF-Flask-Rest-Com"]
 
 
-
 setup(
     name='PF-Flask-Swagger',
-    version='1.0.0',
+    version='1.0.2',
     url='https://github.com/problemfighter/pf-flask-swagger',
     license='Apache 2.0',
     author='Problem Fighter',
@@ -32,6 +31,7 @@ setup(
     description='Flask Swagger Documentation by Problem Fighter Library',
     long_description=README,
     long_description_content_type='text/markdown',
+    package_data={'pf_flask_swagger': ['flask/pf-swagger-static/**/*', 'flask/templates/*']},
     packages=find_packages(),
     zip_safe=False,
     include_package_data=True,
