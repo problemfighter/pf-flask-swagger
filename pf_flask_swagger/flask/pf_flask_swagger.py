@@ -48,3 +48,6 @@ class PFFlaskSwagger:
                     'WWW-Authenticate': 'Basic realm="Login Required"'
                 })
         return None
+
+
+pf_flask_swagger = PFFlaskSwagger()
