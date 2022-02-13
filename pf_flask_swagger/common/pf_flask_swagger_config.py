@@ -24,3 +24,8 @@ class PFFlaskSwaggerConfig(object):
     search_field_param: str = "search"
     sort_default_order: str = "desc"
     sort_default_field: str = "id"
+
+    # SWAGGER UI Config
+    swagger_json_definition_url = "/pf-flask-swagger-json"
+    swagger_ui_url = "/pf-flask-swagger-ui"
+    swagger_static_folder = "pf-swagger-static"

@@ -19,9 +19,9 @@ class PFFlaskSwagger:
 
     def _init_swagger_blue_print(self):
         if PFFlaskSwaggerConfig.enable_swagger_view_page and self._app:
-            blue_print = Blueprint("PFFlaskSwagger", __name__, template_folder="templates", static_folder="pf-swagger-static")
-            blue_print.add_url_rule("/pf-flask-swagger-json", "pf-flask-swagger-json", self.swagger_json)
-            blue_print.add_url_rule("/pf-flask-swagger-ui", "pf-flask-swagger-ui", self.swagger_ui)
+            blue_print = Blueprint("PFFlaskSwagger", __name__, template_folder="templates", static_folder=PFFlaskSwaggerConfig.swagger_static_folder)
+            blue_print.add_url_rule(PFFlaskSwaggerConfig.swagger_json_definition_url, "pf-flask-swagger-json", self.swagger_json)
+            blue_print.add_url_rule(PFFlaskSwaggerConfig.swagger_ui_url, "pf-flask-swagger-ui", self.swagger_ui)
             self._app.register_blueprint(blue_print)
 
     def swagger_json(self):
