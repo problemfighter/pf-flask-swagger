@@ -151,7 +151,7 @@ def patch_request(
 
 
 def get_paginate_request(
-        query_params: list = None,
+        response_obj=None, query_params: list = None,
         url_params: list = None, tag: str = None,
         pagination: bool = True, sorting: bool = True, search: bool = True,
         http_response_code: int = 200, response_content_type: str = ContentTypeConst.APPLICATION_JSON,
@@ -172,7 +172,7 @@ def get_paginate_request(
 
     return add_swagger_endpoint(
         method=MethodConst.GET, query_params=query_params, url_params=url_params,
-        tag=tag, pf_message_response=pf_message_response,
+        tag=tag, pf_message_response=pf_message_response, response_list=response_obj,
         http_response_code=http_response_code, response_content_type=response_content_type
     )
 

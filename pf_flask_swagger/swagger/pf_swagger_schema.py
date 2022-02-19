@@ -63,7 +63,7 @@ class PFSwaggerSchema:
 
         if PFFlaskSwaggerConfig.enable_pf_api_convention:
             any_of_response = {"anyOf": []}
-            if definition.response_obj:
+            if definition.response_obj or definition.response_list:
                 any_of_response["anyOf"].append(PFSwaggerSchema.get_schema_def_and_ref(definition.response_schema_key))
             if definition.pf_message_response:
                 any_of_response["anyOf"].append(PFSwaggerSchema.get_schema_def_and_ref(PFSwaggerConst.MESSAGE_RESPONSE))
